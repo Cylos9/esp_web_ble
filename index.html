@@ -25,8 +25,6 @@
   <button id="onButton">ON</button>
   <button id="offButton">OFF</button>
   <p>Last value sent: <span id="valueSent"></span></p>
-  <p><a href="https://randomnerdtutorials.com/">Created by RandomNerdTutorials.com</a></p>
-  <p><a href="https://RandomNerdTutorials.com/esp32-web-bluetooth/">Read the full project here.</a></p>
 </body>
 <script>
     // DOM Elements
@@ -41,9 +39,9 @@
 
     //Define BLE Device Specs
     var deviceName ='ESP_GATTS_DEMO';
-    var bleService = '0x00FF';
-    var ledCharacteristic = '0xFF01';
-    var sensorCharacteristic= '0xFF02';
+    var bleService = "000000ff-0000-1000-8000-00805f9b34fb";
+    var ledCharacteristic = "0000ff02-0000-1000-8000-00805f9b34fb";
+    var sensorCharacteristic= "0000ff01-0000-1000-8000-00805f9b34fb";
 
     //Global Variables to Handle Bluetooth
     var bleServer;
@@ -79,8 +77,10 @@
     function connectToDevice(){
         console.log('Initializing Bluetooth...');
         navigator.bluetooth.requestDevice({
-            filters: [{name: deviceName}],
-            optionalServices: [bleService]
+            filters: [
+                {name: deviceName},
+                {services: ["000000ff-0000-1000-8000-00805f9b34fb"]}      
+            ],
         })
         .then(device => {
             console.log('Device Selected:', device.name);
@@ -103,8 +103,6 @@
             console.log("Characteristic discovered:", characteristic.uuid);
             sensorCharacteristicFound = characteristic;
             characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicChange);
-            characteristic.startNotifications();
-            console.log("Notifications Started.");
             return characteristic.readValue();
         })
         .then(value => {
@@ -115,7 +113,7 @@
         })
         .catch(error => {
             console.log('Error: ', error);
-        })
+        })String(value).c_str()
     }
 
     function onDisconnected(event){

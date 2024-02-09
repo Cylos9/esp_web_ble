@@ -1,0 +1,36 @@
+[0/1] Re-running CMake...
+-- git rev-parse returned 'fatal: not a git repository (or any of the parent directories): .git'
+-- Could not use 'git describe' to determine PROJECT_VER.
+-- Building ESP-IDF components for target esp32
+-- Project sdkconfig file /home/locdang/esp/gatt_server_service_table/sdkconfig
+Loading defaults file /home/locdang/esp/gatt_server_service_table/sdkconfig.defaults...
+-- App "gatt_server_service_table_demo" version: 1
+-- Adding linker script /home/locdang/esp/gatt_server_service_table/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script /home/locdang/esp/esp-idf/components/esp_system/ld/esp32/sections.ld.in
+-- Adding linker script /home/locdang/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.ld
+-- Adding linker script /home/locdang/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.api.ld
+-- Adding linker script /home/locdang/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.libgcc.ld
+-- Adding linker script /home/locdang/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-data.ld
+-- Adding linker script /home/locdang/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.syscalls.ld
+-- Adding linker script /home/locdang/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-funcs.ld
+-- Adding linker script /home/locdang/esp/esp-idf/components/soc/esp32/ld/esp32.peripherals.ld
+-- Components: app_trace app_update bootloader bootloader_support bt cmock console cxx driver efuse esp-tls esp_adc esp_app_format esp_coex esp_common esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_lcd esp_local_ctrl esp_mm esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_system esp_timer esp_wifi espcoredump esptool_py fatfs freertos hal heap http_parser idf_test ieee802154 json log lwip main mbedtls mqtt newlib nvs_flash openthread partition_table perfmon protobuf-c protocomm pthread sdmmc soc spi_flash spiffs tcp_transport ulp unity usb vfs wear_levelling wifi_provisioning wpa_supplicant xtensa
+-- Component paths: /home/locdang/esp/esp-idf/components/app_trace /home/locdang/esp/esp-idf/components/app_update /home/locdang/esp/esp-idf/components/bootloader /home/locdang/esp/esp-idf/components/bootloader_support /home/locdang/esp/esp-idf/components/bt /home/locdang/esp/esp-idf/components/cmock /home/locdang/esp/esp-idf/components/console /home/locdang/esp/esp-idf/components/cxx /home/locdang/esp/esp-idf/components/driver /home/locdang/esp/esp-idf/components/efuse /home/locdang/esp/esp-idf/components/esp-tls /home/locdang/esp/esp-idf/components/esp_adc /home/locdang/esp/esp-idf/components/esp_app_format /home/locdang/esp/esp-idf/components/esp_coex /home/locdang/esp/esp-idf/components/esp_common /home/locdang/esp/esp-idf/components/esp_eth /home/locdang/esp/esp-idf/components/esp_event /home/locdang/esp/esp-idf/components/esp_gdbstub /home/locdang/esp/esp-idf/components/esp_hid /home/locdang/esp/esp-idf/components/esp_http_client /home/locdang/esp/esp-idf/components/esp_http_server /home/locdang/esp/esp-idf/components/esp_https_ota /home/locdang/esp/esp-idf/components/esp_https_server /home/locdang/esp/esp-idf/components/esp_hw_support /home/locdang/esp/esp-idf/components/esp_lcd /home/locdang/esp/esp-idf/components/esp_local_ctrl /home/locdang/esp/esp-idf/components/esp_mm /home/locdang/esp/esp-idf/components/esp_netif /home/locdang/esp/esp-idf/components/esp_netif_stack /home/locdang/esp/esp-idf/components/esp_partition /home/locdang/esp/esp-idf/components/esp_phy /home/locdang/esp/esp-idf/components/esp_pm /home/locdang/esp/esp-idf/components/esp_psram /home/locdang/esp/esp-idf/components/esp_ringbuf /home/locdang/esp/esp-idf/components/esp_rom /home/locdang/esp/esp-idf/components/esp_system /home/locdang/esp/esp-idf/components/esp_timer /home/locdang/esp/esp-idf/components/esp_wifi /home/locdang/esp/esp-idf/components/espcoredump /home/locdang/esp/esp-idf/components/esptool_py /home/locdang/esp/esp-idf/components/fatfs /home/locdang/esp/esp-idf/components/freertos /home/locdang/esp/esp-idf/components/hal /home/locdang/esp/esp-idf/components/heap /home/locdang/esp/esp-idf/components/http_parser /home/locdang/esp/esp-idf/components/idf_test /home/locdang/esp/esp-idf/components/ieee802154 /home/locdang/esp/esp-idf/components/json /home/locdang/esp/esp-idf/components/log /home/locdang/esp/esp-idf/components/lwip /home/locdang/esp/gatt_server_service_table/main /home/locdang/esp/esp-idf/components/mbedtls /home/locdang/esp/esp-idf/components/mqtt /home/locdang/esp/esp-idf/components/newlib /home/locdang/esp/esp-idf/components/nvs_flash /home/locdang/esp/esp-idf/components/openthread /home/locdang/esp/esp-idf/components/partition_table /home/locdang/esp/esp-idf/components/perfmon /home/locdang/esp/esp-idf/components/protobuf-c /home/locdang/esp/esp-idf/components/protocomm /home/locdang/esp/esp-idf/components/pthread /home/locdang/esp/esp-idf/components/sdmmc /home/locdang/esp/esp-idf/components/soc /home/locdang/esp/esp-idf/components/spi_flash /home/locdang/esp/esp-idf/components/spiffs /home/locdang/esp/esp-idf/components/tcp_transport /home/locdang/esp/esp-idf/components/ulp /home/locdang/esp/esp-idf/components/unity /home/locdang/esp/esp-idf/components/usb /home/locdang/esp/esp-idf/components/vfs /home/locdang/esp/esp-idf/components/wear_levelling /home/locdang/esp/esp-idf/components/wifi_provisioning /home/locdang/esp/esp-idf/components/wpa_supplicant /home/locdang/esp/esp-idf/components/xtensa
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/locdang/esp/gatt_server_service_table/build
+[1/9] Performing build step for 'bootloader'
+[1/1] cd /home/locdang/esp/gatt_server_service_table/build/bootloader/esp-idf/esptool_py && /home/locdang/.espressif/python_env/idf5.1_py3.10_env/bin/python /home/locdang/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /home/locdang/esp/gatt_server_service_table/build/bootloader/bootloader.bin
+Bootloader binary size 0x6810 bytes. 0x7f0 bytes (7%) free.
+[2/7] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/gatts_light_control.c.obj
+[3/7] Linking C static library esp-idf/main/libmain.a
+[4/7] Generating ld/sections.ld
+[5/7] Linking CXX executable gatt_server_service_table_demo.elf
+[6/7] Generating binary image from built executable
+esptool.py v4.7.0
+Creating esp32 image...
+Merged 27 ELF sections
+Successfully created esp32 image.
+Generated /home/locdang/esp/gatt_server_service_table/build/gatt_server_service_table_demo.bin
+[7/7] cd /home/locdang/esp/gatt_server_service_table/build/esp-idf/esptool_py && /home/locdang/.espressif/python_env/idf5.1_py3.10_env/bin/python /home/locdang/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/locdang/esp/gatt_server_service_table/build/partition_table/partition-table.bin /home/locdang/esp/gatt_server_service_table/build/gatt_server_service_table_demo.bin
+gatt_server_service_table_demo.bin binary size 0xbf190 bytes. Smallest app partition is 0x100000 bytes. 0x40e70 bytes (25%) free.

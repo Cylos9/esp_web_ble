@@ -1,0 +1,24 @@
+[0;33m--- esp-idf-monitor 1.4.0 on /dev/ttyUSB0 115200 ---[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x40081398: call_start_cpu1 at /home/locdang/esp/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0;33m0x400ef42c: gatts_get_attribute_value at /home/locdang/esp/esp-idf/components/bt/host/bluedroid/stack/gatt/gatt_db.c:885
+[0m
+[0;33m0x400ef429: gatts_get_attribute_value at /home/locdang/esp/esp-idf/components/bt/host/bluedroid/stack/gatt/gatt_db.c:879 (discriminator 3)
+0x400eb616: GATTS_GetAttributeValue at /home/locdang/esp/esp-idf/components/bt/host/bluedroid/stack/gatt/gatt_api.c:807
+0x40114839: bta_gatts_get_attr_value at /home/locdang/esp/esp-idf/components/bt/host/bluedroid/bta/gatt/bta_gatts_act.c:547
+0x40101a34: BTA_GetAttributeValue at /home/locdang/esp/esp-idf/components/bt/host/bluedroid/bta/gatt/bta_gatts_api.c:502
+0x400dc584: btc_gatts_get_attr_value at /home/locdang/esp/esp-idf/components/bt/host/bluedroid/btc/profile/std/gatt/btc_gatts.c:498
+0x400d957e: esp_ble_gatts_get_attr_value at /home/locdang/esp/esp-idf/components/bt/host/bluedroid/api/esp_gatts_api.c:342
+0x400d7770: check_light_on at /home/locdang/esp/gatt_server_service_table/main/gatts_light_control.c:616
+0x400d781f: update_led_duty at /home/locdang/esp/gatt_server_service_table/main/gatts_light_control.c:658
+0x400d78a5: led_control_task at /home/locdang/esp/gatt_server_service_table/main/gatts_light_control.c:691 (discriminator 1)
+0x40093c7d: vPortTaskWrapper at /home/locdang/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:162
+[0m
+[0;33m0x40080400: _init at ??:?
+[0m
+[0;33m0x40081398: call_start_cpu1 at /home/locdang/esp/esp-idf/components/esp_system/port/cpu_start.c:157
+[0m
+[0m
