@@ -176,7 +176,8 @@ static void ledc_init(void);
 static void lcd_init(void);
 static void update_lcd_screen(void);
 static uint8_t check_light_on(void);
-static int get_att_value(uint8_t handle_id);
+static int get_att_value_in_integer(uint8_t handle_id);
+static int convert_str_to_int(uint16_t length, const uint8_t* char_arr);
 void display_task( void * pvParameters );
 void led_control_task( void * pvParameters );
 /* One gatt-based profile one app_id and one gatts_if, this array will store the gatts_if returned by ESP_GATTS_REG_EVT */
@@ -398,22 +399,18 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
         case ESP_GATTS_READ_EVT:
         
             ESP_LOGI(GATTS_TABLE_TAG, "GATT_READ_EVT, handle = %d\n", param->read.handle);
+            uint16_t length = 0;
+            const uint8_t *prf_char;
+            ESP_ERROR_CHECK(esp_ble_gatts_get_attr_value(light_control_handle_table[handle_id],  &length, &prf_char));
 
-            if(light_control_handle_table[LC_IDX_BRIG_CHAR_VAL] == param->read.handle)
-            {
-                uint8_t light_val = get_att_value(LC_IDX_BRIG_CHAR_VAL);
-                
-                esp_gatt_rsp_t rsp;
-                memset(&rsp, 0, sizeof(esp_gatt_rsp_t));
-                 rsp.attr_value.handle = param->read.handle;
-                 rsp.attr_value.len =  1;
-                 rsp.attr_value.value[0] = light_val;
-                 
-                esp_ble_gatts_send_response(gatts_if, param->read.conn_id, param->read.trans_id,
-                                            ESP_GATT_OK, &rsp);
-
-            }
+            esp_gatt_rsp_t rsp;
+            memset(&rsp, 0, sizeof(esp_gatt_rsp_t));
+            rsp.attr_value.handle = param->read.handle;
+            rsp.attr_value.len =  length;
+            memcpy(rsp.attr_value.value, prf_char, length);
             
+            esp_ble_gatts_send_response(gatts_if, param->read.conn_id, param->read.trans_id,
+                                        ESP_GATT_OK, &rsp);
 
        	    break;
         case ESP_GATTS_WRITE_EVT:
@@ -422,28 +419,22 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
                 ESP_LOGI(GATTS_TABLE_TAG, "GATT_WRITE_EVT, handle = %d, value len = %d, value :", param->write.handle, param->write.len);
                 esp_log_buffer_hex(GATTS_TABLE_TAG, param->write.value, param->write.len);
 
-                if(light_control_handle_table[LC_IDX_BRIG_CHAR_VAL] == param->write.handle && param->write.len == 1 )
+                if(light_control_handle_table[LC_IDX_BRIG_CHAR_VAL] == param->write.handle && param->write.len <= 3)
                 {
-                    uint8_t light_on = check_light_on();
-                    if(light_on == 0x01)
-                    {
-                        uint8_t brig_val = param->write.value[0];
-                        if (brig_val > 100)
-                        {
-                            brig_val = 100;
-                        }
+                    int light_val = convert_str_to_int( param->write.len, param->write.value);
 
-                        ESP_ERROR_CHECK(esp_ble_gatts_set_attr_value(param->write.handle, 1, &brig_val));
+                    if(0 <= light_val && light_val <= 100)
+                    {
+                        ESP_ERROR_CHECK(esp_ble_gatts_set_attr_value(param->write.handle, param->write.len, param->write.value));
                     }
+
                 }
-
-                if(light_control_handle_table[LC_IDX_CFG_CHAR_VAL] == param->write.handle && param->write.len == 1 )
+                
+                else if(light_control_handle_table[LC_IDX_CFG_CHAR_VAL] == param->write.handle && param->write.len == 1 )
                 {
-                    uint8_t light_cfg = param->write.value[0];
-
-                    if (light_cfg == 0x00 || light_cfg == 0x01)
+                    if (param->write.value[0] == 0x30 || param->write.value[0] == 0x31)
                     {
-                        ESP_ERROR_CHECK(esp_ble_gatts_set_attr_value(param->write.handle, 1, &light_cfg));
+                        ESP_ERROR_CHECK(esp_ble_gatts_set_attr_value(param->write.handle, 1, param->write.value[0]));
                     }
                 }
 
@@ -582,27 +573,34 @@ static void lcd_init(void){
 
   }
 
-static int get_att_value(uint8_t handle_id)
+static int get_att_value_in_integer(uint8_t handle_id)
 {
     uint16_t length = 0;
     const uint8_t *prf_char;
     ESP_ERROR_CHECK(esp_ble_gatts_get_attr_value(light_control_handle_table[handle_id],  &length, &prf_char));
 
+    int value  = convert_str_to_int( length, prf_char);
+    
+    return value;
+}
+
+static int convert_str_to_int(uint16_t length, const uint8_t* char_arr)
+{
     //convert to C string
     char str_val[length+1];
     memset(str_val, 0 , length+1);
-    memcpy(str_val, prf_char, length);
+    memcpy(str_val, char_arr, length);
 
     //convert to int
     int value;
     sscanf(str_val, "%d", &value);
-    
+
     return value;
 }
 
 static uint8_t check_light_on(void)
 {
-    uint8_t light_on = get_att_value(LC_IDX_CFG_CHAR_VAL);
+    uint8_t light_on = get_att_value_in_integer(LC_IDX_CFG_CHAR_VAL);
     return light_on;
 }
 
@@ -619,7 +617,7 @@ static void update_lcd_screen(void)
     return;
     }
 
-    uint8_t light_val = get_att_value(LC_IDX_BRIG_CHAR_VAL);
+    uint8_t light_val = get_att_value_in_integer(LC_IDX_BRIG_CHAR_VAL);
 
     sprintf(second_line," %3d   ",light_val);
     lcdSetText(&lcd, second_line, 0, 1);
@@ -637,7 +635,7 @@ static void update_led_duty(void)
     return;
     }
 
-    uint8_t light_val = get_att_value(LC_IDX_BRIG_CHAR_VAL);
+    uint8_t light_val = get_att_value_in_integer(LC_IDX_BRIG_CHAR_VAL);
 
     int ledc_duty = (float)LEDC_DUTY_MAX /100*light_val;
 
