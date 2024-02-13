@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <title>BLE Light Control</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="headline">
+            <h1>BLE Light Control</h1>
+            <label class="switch">
+                <input id="ble-checkbox" type="checkbox">
+                <span class="toggler round"></span>
+            </label>
+        </div>
+        <div id="light-controller">
+            <p id="ble-status"> Bluetooth is not connected</p>
+            <div class="slider">
+                <p class="text">Light value</p>
+                <input type="range" min="0" max="100" value="50" oninput="rangeValue.innerText = this.value">
+                <p id="rangeValue">50</p>
+            </div> 
+
+            <div class="ble-btn">
+                <span >OFF</span>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
