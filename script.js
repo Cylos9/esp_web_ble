@@ -71,7 +71,7 @@ function connectToDevice(){
         console.log('Device Selected:', device.name);
         $("#ble-status").text("Connected to device " + device.name);
         $("#ble-status").css("color", "green");
-        device.addEventListener('gattservicedisconnected', onDisconnected);
+        device.addEventListener('gattserverdisconnected', onDisconnected);
         return device.gatt.connect();
     })
     .then(gattServer =>{
@@ -123,12 +123,11 @@ function connectToDevice(){
 }
 
 function onDisconnected(event){
-    console.log('Device Disconnected:', event.target.device.name);
+    console.log('Device Disconnected');
     $("#ble-checkbox").attr("checked", false);
     $("#ble-status").text("Device disconnected");
     $("#ble-status").css("color", "black");
     $("#light-controller").slideUp(1000);
-    connectToDevice();
 }
 
 function setBTN(val)
