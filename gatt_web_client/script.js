@@ -111,7 +111,7 @@ function connectToDevice(){
             console.log("intial config value: ", decodedValue);
            setBTN(decodedValue);
            
-           $(".div-blocker").hide();
+           $("#light-controller").slideDown(1000);
         })
         .catch(error => {
             console.log('Error: ', error);
@@ -129,7 +129,7 @@ function onDisconnected(event){
     $("#ble-checkbox").attr("checked", false);
     $("#ble-status").text("Device disconnected");
     $("#ble-status").css("color", "black");
-    $(".div-blocker").show();
+    $("#light-controller").slideUp(1000);
     connectToDevice();
 }
 
@@ -156,7 +156,7 @@ function disconnectDevice() {
         console.log("Device Disconnected");
         $("#ble-status").text("Device disconnected");
         $("#ble-status").css("color", "black");
-        $(".div-blocker").show();
+        $("#light-controller").slideUp(1000);
     }
 } 
 
