@@ -197,7 +197,7 @@ static const uint16_t primary_service_uuid         = ESP_GATT_UUID_PRI_SERVICE;
 static const uint16_t character_declaration_uuid   = ESP_GATT_UUID_CHAR_DECLARE;
 static const uint16_t character_client_config_uuid = ESP_GATT_UUID_CHAR_CLIENT_CONFIG;
 // static const uint8_t char_prop_read                =  ESP_GATT_CHAR_PROP_BIT_READ;
-static const uint8_t char_prop_write               = ESP_GATT_CHAR_PROP_BIT_WRITE;
+// static const uint8_t char_prop_write               = ESP_GATT_CHAR_PROP_BIT_WRITE;
 static const uint8_t char_prop_read_write   = ESP_GATT_CHAR_PROP_BIT_WRITE | ESP_GATT_CHAR_PROP_BIT_READ ;
 static const uint8_t brightness_char_ccc[2]      = {0x00, 0x00};
 static const uint8_t led_cfg_init_val[1]         = {0x31};
@@ -230,7 +230,7 @@ static const esp_gatts_attr_db_t gatt_db[LC_IDX_NB] =
     /* Characteristic Declaration */
     [LC_IDX_CFG_CHAR]      =
     {{ESP_GATT_RSP_BY_APP}, {ESP_UUID_LEN_16, (uint8_t *)&character_declaration_uuid, ESP_GATT_PERM_READ,
-      CHAR_DECLARATION_SIZE, CHAR_DECLARATION_SIZE, (uint8_t *)&char_prop_write}},
+      CHAR_DECLARATION_SIZE, CHAR_DECLARATION_SIZE, (uint8_t *)&char_prop_read_write}},
 
     /* Characteristic Value */
     [LC_IDX_CFG_CHAR_VAL]  =
@@ -401,7 +401,7 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
             ESP_LOGI(GATTS_TABLE_TAG, "GATT_READ_EVT, handle = %d\n", param->read.handle);
             uint16_t length = 0;
             const uint8_t *prf_char;
-            ESP_ERROR_CHECK(esp_ble_gatts_get_attr_value(light_control_handle_table[handle_id],  &length, &prf_char));
+            ESP_ERROR_CHECK(esp_ble_gatts_get_attr_value(param->read.handle,  &length, &prf_char));
 
             esp_gatt_rsp_t rsp;
             memset(&rsp, 0, sizeof(esp_gatt_rsp_t));
@@ -434,7 +434,7 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
                 {
                     if (param->write.value[0] == 0x30 || param->write.value[0] == 0x31)
                     {
-                        ESP_ERROR_CHECK(esp_ble_gatts_set_attr_value(param->write.handle, 1, param->write.value[0]));
+                        ESP_ERROR_CHECK(esp_ble_gatts_set_attr_value(param->write.handle, 1, param->write.value));
                     }
                 }
 
