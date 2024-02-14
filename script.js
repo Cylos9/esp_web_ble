@@ -1,9 +1,8 @@
 $(document).ready(function () {
 //Define BLE Device Specs
-var deviceName ='ESP_GATTS_DEMO';
-var bleServiceUUID = "000000ff-0000-1000-8000-00805f9b34fb";
-var brigCharUUID = "0000ff01-0000-1000-8000-00805f9b34fb";
-var cfgCharUUID= "0000ff02-0000-1000-8000-00805f9b34fb";
+var bleServiceUUID = 0x00FF;
+var brigCharUUID = 0xFF01;
+var cfgCharUUID = 0xFF02;
 
 var bleServer;
 var bleService;
@@ -65,7 +64,6 @@ function connectToDevice(){
     console.log('Initializing Bluetooth...');
     navigator.bluetooth.requestDevice({
         filters: [
-            {name: deviceName},
             {services: [bleServiceUUID]}      
         ],
     })
