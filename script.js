@@ -71,7 +71,7 @@ function connectToDevice(){
         console.log('Device Selected:', device.name);
         $("#ble-status").text("Connected to device " + device.name);
         $("#ble-status").css("color", "green");
-        device.addEventListener('gattservicedisconnected', onDisconnected);
+        // device.addEventListener('gattservicedisconnected', onDisconnected);
         return device.gatt.connect();
     })
     .then(gattServer =>{
