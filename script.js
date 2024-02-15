@@ -54,6 +54,7 @@ function isWebBluetoothEnabled() {
         console.log("Web Bluetooth API is not available in this browser!");
         $("#ble-status").text("Web Bluetooth API is not available in this browser!");
         $("#ble-status").css("color", "red");
+        $("#ble-checkbox").attr("checked", false);
         return false
     }
     console.log('Web Bluetooth API supported in this browser.');
