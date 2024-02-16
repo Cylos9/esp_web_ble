@@ -21,8 +21,10 @@ $('#ble-checkbox').on("change", (function(e){
 }));
 
 $('.ble-btn').on("click", (function(e){
+    $(this).attr("disabled", true);
     if($(this).hasClass('on'))
     {
+        
         writeChar(cfgChar, "0");
         setBTN("0");
 
@@ -32,10 +34,13 @@ $('.ble-btn').on("click", (function(e){
         writeChar(cfgChar, "1");
         setBTN("1");
     }
+    $(this).attr("disabled", false);
 }));
 
 $('#slider').on("change", (function(e){
+    $(this).attr("disabled", true);
     writeChar(brigChar,$(this).val().toString());
+    $(this).attr("disabled", false);
 }));
 
 function writeChar(char, val){
