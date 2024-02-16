@@ -43,7 +43,7 @@ function writeChar(char, val){
         const encoder = new TextEncoder();
         const array = encoder.encode(val);
         char.writeValue(array);
-        sleep(30);
+        sleep(300);
     } else {
         console.error ("Bluetooth is not connected. Cannot write to characteristic.")
         window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
