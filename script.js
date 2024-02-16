@@ -43,6 +43,7 @@ function writeChar(char, val){
         const encoder = new TextEncoder();
         const array = encoder.encode(val);
         char.writeValue(array);
+        sleep(30);
     } else {
         console.error ("Bluetooth is not connected. Cannot write to characteristic.")
         window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
@@ -157,5 +158,9 @@ function disconnectDevice() {
         $("#light-controller").slideUp(1000);
     }
 } 
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 });
